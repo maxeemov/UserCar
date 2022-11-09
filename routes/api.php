@@ -27,8 +27,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
 });
 
+//Admin routes
 Route::group(['middleware' => ['auth:api', 'admin']], function () {
+    //Car actions
     Route::resource('/cars',CarController::class)->except(['create', 'edit']);
+
+    //User actions
     Route::resource('/users',UserController::class)->except(['create', 'edit', 'store']);
-    Route::resource('/users_cars',UserCarController::class)->only(['index']);
+
+    //UserCar actions
+    Route::resource('/users_cars',UserCarController::class)->only(['index', 'store']);
+    Route::put('/users_cars/detach_user/{id}',[UserCarController::class, 'detachUser']);
+    Route::put('/users_cars/detach_car/{id}',[UserCarController::class, 'detachCar']);
 });
