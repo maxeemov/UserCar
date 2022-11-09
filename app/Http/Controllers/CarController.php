@@ -14,9 +14,9 @@ class CarController extends Controller
      */
     public function index(): Response
     {
-        $cars = Car::paginate(100);
+        $cars = Car::paginate(100)->all();
 
-        $response = ['success' => true, 'data' => $cars->all()];
+        $response = ['success' => true, 'data' => $cars];
         return response($response, 200);
     }
 
