@@ -20,6 +20,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/register', [ApiAuthController::class, 'store'])->name('register.api');
 });
 
-Route::middleware('auth:api')->group(function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
 });
