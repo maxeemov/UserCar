@@ -50,10 +50,7 @@ class ApiAuthController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $request['password'] = Hash::make($request->password);
-        $request['remember_token'] = Str::random(10);
-
-        $user = User::create($request->toArray());
+        $user = User::create($request->all());
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
         $response = ['success' => true, 'data' => ['token' => $token]];
