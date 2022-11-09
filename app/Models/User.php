@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -53,5 +54,13 @@ class User extends Authenticatable
         if ($this->role === self::ADMIN_ROLE_NAME) return true;
 
         return false;
+    }
+
+    /**
+     * @return Relation
+     */
+    public function cars(): Relation
+    {
+        return $this->belongsToMany(Car::class, 'users_cars');
     }
 }
