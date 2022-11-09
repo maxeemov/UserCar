@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
 
@@ -22,4 +24,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
+});
+
+Route::group(['middleware' => ['auth:api', 'admin']], function () {
+    Route::resource('/cars',CarController::class)->except(['create', 'edit']);
+    Route::resource('/users',UserController::class)->except(['create', 'edit', 'store']);
 });
