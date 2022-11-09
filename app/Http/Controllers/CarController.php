@@ -63,7 +63,7 @@ class CarController extends Controller
 
         if (!$car) {
             $response = ['success' => false, 'message' => 'The car was not found.'];
-            return response($response, 200);
+            return response($response, 404);
         }
 
         $car->update($request->all());
@@ -81,7 +81,7 @@ class CarController extends Controller
 
         if (!$car) {
             $response = ['success' => false, 'message' => 'The car was not found.'];
-            return response($response, 200);
+            return response($response, 404);
         }
 
         $car->delete();

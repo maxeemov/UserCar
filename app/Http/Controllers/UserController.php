@@ -43,7 +43,7 @@ class UserController extends Controller
 
         if (!$user) {
             $response = ['success' => false, 'message' => 'The user was not found.'];
-            return response($response, 200);
+            return response($response, 404);
         }
 
         $user->update($request->all());
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         if (!$user) {
             $response = ['success' => false, 'message' => 'The user was not found.'];
-            return response($response, 200);
+            return response($response, 404);
         }
 
         $user->delete();
