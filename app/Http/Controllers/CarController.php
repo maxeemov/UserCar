@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCarRequest;
+use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -56,7 +57,7 @@ class CarController extends Controller
      * @param $id
      * @return Response
      */
-    public function update(StoreCarRequest $request, $id): Response
+    public function update(UpdateCarRequest $request, $id): Response
     {
         $car = Car::find($id);
 
