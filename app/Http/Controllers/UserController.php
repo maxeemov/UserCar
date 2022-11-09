@@ -14,9 +14,9 @@ class UserController extends Controller
      */
     public function index(): Response
     {
-        $user = User::paginate(100);
+        $user = User::paginate(100)->all();
 
-        $response = ['success' => true, 'data' => $user->all()];
+        $response = ['success' => true, 'data' => $user];
         return response($response, 200);
     }
 
