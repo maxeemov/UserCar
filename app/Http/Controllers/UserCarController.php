@@ -16,7 +16,7 @@ class UserCarController extends Controller
      */
     public function index(): Response
     {
-        $usersCars = User::whereHas('cars')->paginate(100)->all();
+        $usersCars = User::with('cars')->whereHas('cars')->paginate(100)->all();
 
         $response = ['success' => true, 'data' => $usersCars];
         return response($response, 200);
