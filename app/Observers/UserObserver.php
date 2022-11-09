@@ -50,8 +50,8 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        if (isset($user->password)) {
-            $user->password = Hash::make($user->password);
+        if (request()->has('password')) {
+            $user->password = Hash::make(request()->password);
         }
     }
 
