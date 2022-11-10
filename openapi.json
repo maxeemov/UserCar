@@ -1,0 +1,878 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Users Cars",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Registration new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user/register"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user/login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You have been successfully logged out."
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "hash string ..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "Logout user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You have been successfully logged out."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "List user with pagination",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "number page",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": [
+                        {
+                          "id": 1,
+                          "name": "max",
+                          "email": "max@gmail.com",
+                          "email_verified_at": null,
+                          "role": "User",
+                          "created_at": "2022-11-09T11:29:06.000000Z",
+                          "updated_at": "2022-11-09T19:11:19.000000Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "User data",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "name": "max",
+                        "email": "max@gmail.com",
+                        "email_verified_at": null,
+                        "role": "User",
+                        "created_at": "2022-11-09T11:29:06.000000Z",
+                        "updated_at": "2022-11-09T19:11:19.000000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "User update",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user/update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The user have been successfully updated."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "User delete",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The user have been successfully removed."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "get": {
+        "summary": "List cars with pagination",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": [
+                        {
+                          "id": 1,
+                          "name": "Mustang\"",
+                          "created_at": "2022-11-09T17:26:57.000000Z",
+                          "updated_at": "2022-11-09T18:08:07.000000Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cars store",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/car/store"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The car(s) have been successfully saved."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "summary": "Car data",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "name": "Mustang",
+                        "created_at": "2022-11-09T17:26:57.000000Z",
+                        "updated_at": "2022-11-09T18:08:07.000000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Car update",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/car/update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The car have been successfully updated."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Car delete",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The car have been successfully removed."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users_cars": {
+      "get": {
+        "summary": "List users with cars with pagination",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": [
+                        {
+                          "id": 1,
+                          "name": "Max",
+                          "email": "max@gmail.com",
+                          "email_verified_at": null,
+                          "role": "User",
+                          "created_at": "2022-11-09T16:47:22.000000Z",
+                          "updated_at": "2022-11-09T16:47:22.000000Z",
+                          "cars": [
+                            {
+                              "id": 1,
+                              "name": "Mustang",
+                              "created_at": "2022-11-09T18:08:30 000000Z",
+                              "updated_at": "2022-11-09T18:08:30.000000Z",
+                              "pivot": {
+                                "user_id": 1,
+                                "car_id": 1
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create relations with user and car",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "car_id": 1,
+                    "user_id": 1
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The car(s) have been successfully saved."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users_cars/detach_user/{id}": {
+      "put": {
+        "summary": "Remove relation user with update",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "All cars have been successfully detached"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users_cars/detach_car/{id}": {
+      "put": {
+        "summary": "Remove relation car with user",
+        "parameters": [
+          {
+            "name": null,
+            "in": "query",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "All users have been successfully detached."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "auth": {
+        "Authorization": {
+          "type": "string",
+          "example": "Bearer ..."
+        }
+      },
+      "user": {
+        "register": {
+          "required": [
+            "name",
+            "email",
+            "password",
+            "password_confirmation"
+          ],
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "max"
+            },
+            "email": {
+              "type": "string",
+              "example": "max@gmail.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password"
+            },
+            "password_confirmation": {
+              "type": "string",
+              "description": "must match with password"
+            }
+          }
+        },
+        "login": {
+          "required": [
+            "email",
+            "password"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": "max@gmail.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password"
+            }
+          }
+        },
+        "update": {
+          "required": [
+            "name",
+            "email",
+            "password",
+            "password_confirmation"
+          ],
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "max"
+            },
+            "email": {
+              "type": "string",
+              "example": "max@gmail.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password"
+            },
+            "password_confirmation": {
+              "type": "string",
+              "example": "password",
+              "description": "must match with password"
+            },
+            "role": {
+              "type": "strung",
+              "enum": [
+                "User",
+                "Admin"
+              ]
+            }
+          }
+        }
+      },
+      "car": {
+        "store": {
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Mustang"
+            }
+          }
+        },
+        "update": {
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Mustang"
+            }
+          }
+        }
+      }
+    }
+  }
+}
